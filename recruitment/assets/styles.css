@@ -453,10 +453,10 @@ button:focus:before,
 	transform: translateY(0);
 	transition: all 0.15s ease-in;
 	margin: 12px auto 0 auto;
+	min-height: 90%;
 }
 
-.card ~ .card,
-.column ~ .column .card {
+.cardWithMargin {
 	margin-top: 2.25rem;
 }
 
@@ -766,4 +766,11 @@ section.bg-image:nth-last-child(2)::before {
 
 section#footer {
 	background-color: transparent !important;
+}
+
+.deptGridRow {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 2rem;
+	align-items: start;
 }
