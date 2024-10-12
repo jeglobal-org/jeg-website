@@ -763,3 +763,7 @@ section.bg-image:nth-last-child(2)::before {
 	display: table;
 	clear: both;
 }
+
+section#footer {
+	background-color: transparent !important;
+}
