@@ -774,3 +774,9 @@ section#footer {
 	grid-gap: 2rem;
 	align-items: start;
 }
+
+@media (max-width: 696px) {
+	.deptGridRow {
+		grid-template-columns: 1fr;
+	}
+}
