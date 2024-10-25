@@ -21,6 +21,7 @@ body {
 	padding: 0;
 	color: #222;
 	overflow-x: hidden;
+	text-align: justify;
 }
 
 button {
@@ -169,6 +170,7 @@ blockquote cite,
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-size: 14px;
+	text-align: left;
 }
 h2.cite:first-child {
 	margin-top: 0;
@@ -454,6 +456,7 @@ button:focus:before,
 	transition: all 0.15s ease-in;
 	margin: 12px auto 0 auto;
 	min-height: 90%;
+	text-align: justify;
 }
 
 .cardWithMargin {
@@ -773,4 +776,10 @@ section#footer {
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 2rem;
 	align-items: start;
+}
+
+@media (max-width: 696px) {
+	.deptGridRow {
+		grid-template-columns: 1fr;
+	}
 }
