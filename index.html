@@ -4839,14 +4839,15 @@
 			const rejectBtn = document.getElementById("declineButton");
 
 			consentBtn.onclick = () => {
-				document.cookie = "CookieBy=JEGlobal; max-age=" + 60 * 60 * 24;
-				if (document.cookie) {
+				document.cookie =
+					"CookieBy=JEGlobal; max-age=" + 60 * 60 * 24 + "; path=/";
+				if (document.cookie.indexOf("CookieBy=JEGlobal") !== -1) {
 					consentBox.classList.add("hide");
+					// Set any additional cookies here
+					loadTrackingScripts();
 				} else {
 					alert(
-						"Cookie can't be set! Please" +
-							" unblock this site from the cookie" +
-							" setting of your browser."
+						"Cookie can't be set! Please unblock this site from the cookie settings of your browser."
 					);
 				}
 			};
@@ -4857,9 +4858,27 @@
 			};
 
 			let checkCookie = document.cookie.indexOf("CookieBy=JEGlobal");
-			checkCookie !== -1
-				? consentBox.classList.add("hide")
-				: consentBox.classList.remove("hide");
+			if (checkCookie !== -1) {
+				consentBox.classList.add("hide");
+				loadTrackingScripts();
+			} else {
+				consentBox.classList.remove("hide");
+			}
+
+			function loadTrackingScripts() {
+				let script = document.createElement("script");
+				script.src = "https://www.googletagmanager.com/gtag/js?id=G-PPM76B8GRK";
+				document.head.appendChild(script);
+
+				script.onload = () => {
+					window.dataLayer = window.dataLayer || [];
+					function gtag() {
+						dataLayer.push(arguments);
+					}
+					gtag("js", new Date());
+					gtag("config", "G-PPM76B8GRK");
+				};
+			}
 		</script>
 	</body>
 </html>
