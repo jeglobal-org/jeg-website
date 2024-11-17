@@ -4818,17 +4818,23 @@
 			const consentBtn = document.getElementById("acceptButton");
 			const rejectBtn = document.getElementById("declineButton");
 
+			gtag("consent", "default", {
+				ad_storage: "denied",
+				analytics_storage: "denied",
+			});
+
 			consentBtn.onclick = () => {
 				document.cookie =
-					"CookieBy=JEGlobal; max-age=" + 60 * 60 * 24 + "; path=/";
-				if (document.cookie.indexOf("CookieBy=JEGlobal") !== -1) {
-					consentBox.classList.add("hide");
-					loadGoogleAnalytics();
-				} else {
-					alert(
-						"Cookie can't be set! Please unblock this site from the cookie settings of your browser."
-					);
-				}
+					"Junior Enterprises Global=default; max-age=" +
+					60 * 60 * 24 +
+					"; path=/";
+				consentBox.classList.add("hide");
+				// Aggiorna il Consent Mode per consentire la raccolta dati
+				gtag("consent", "update", {
+					ad_storage: "granted",
+					analytics_storage: "granted",
+				});
+				loadGoogleAnalytics();
 			};
 
 			rejectBtn.onclick = () => {
