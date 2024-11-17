@@ -22,21 +22,6 @@
 			content="width=device-width, initial-scale=1, maximum-scale=1"
 		/>
 
-		<!-- Google tag (gtag.js) -->
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=G-PPM76B8GRK"
-		></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
-
-			gtag("config", "G-PPM76B8GRK");
-		</script>
-
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
 		<script
 			src="https://kit.fontawesome.com/747bf4ad3b.js"
@@ -4808,15 +4793,12 @@
 
 			document.querySelector(".next").addEventListener("click", () => {
 				if (currentIndex < 5 - 1) {
-					// Controlla se non siamo sull'ultima slide
 					currentIndex++;
 					updateSlidePosition();
 				}
 				if (currentIndex === 3 - 1) {
-					// Se siamo sull'ultima slide, disabilita il pulsante Next
 					document.querySelector(".next").disabled = true;
 				}
-				// Riattiva il pulsante Prev se necessario
 				document.querySelector(".prev").disabled = false;
 			});
 
@@ -4826,10 +4808,8 @@
 					updateSlidePosition();
 				}
 				if (currentIndex === 0) {
-					// Se siamo sulla prima slide, disabilita il pulsante Prev
 					document.querySelector(".prev").disabled = true;
 				}
-				// Riattiva il pulsante Next se necessario
 				document.querySelector(".next").disabled = false;
 			});
 		</script>
@@ -4843,8 +4823,7 @@
 					"CookieBy=JEGlobal; max-age=" + 60 * 60 * 24 + "; path=/";
 				if (document.cookie.indexOf("CookieBy=JEGlobal") !== -1) {
 					consentBox.classList.add("hide");
-					// Set any additional cookies here
-					loadTrackingScripts();
+					loadGoogleAnalytics();
 				} else {
 					alert(
 						"Cookie can't be set! Please unblock this site from the cookie settings of your browser."
@@ -4860,14 +4839,15 @@
 			let checkCookie = document.cookie.indexOf("CookieBy=JEGlobal");
 			if (checkCookie !== -1) {
 				consentBox.classList.add("hide");
-				loadTrackingScripts();
+				loadGoogleAnalytics();
 			} else {
 				consentBox.classList.remove("hide");
 			}
 
-			function loadTrackingScripts() {
+			function loadGoogleAnalytics() {
 				let script = document.createElement("script");
 				script.src = "https://www.googletagmanager.com/gtag/js?id=G-PPM76B8GRK";
+				script.async = true;
 				document.head.appendChild(script);
 
 				script.onload = () => {
