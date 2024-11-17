@@ -4828,13 +4828,20 @@
 					"Junior Enterprises Global=default; max-age=" +
 					60 * 60 * 24 +
 					"; path=/";
-				consentBox.classList.add("hide");
-				// Aggiorna il Consent Mode per consentire la raccolta dati
-				gtag("consent", "update", {
-					ad_storage: "granted",
-					analytics_storage: "granted",
-				});
-				loadGoogleAnalytics();
+				if (
+					document.cookie.indexOf("Junior Enterprises Global=default") !== -1
+				) {
+					consentBox.classList.add("hide");
+					gtag("consent", "update", {
+						ad_storage: "granted",
+						analytics_storage: "granted",
+					});
+					loadGoogleAnalytics();
+				} else {
+					alert(
+						"Cookie can't be set! Please unblock this site from the cookie settings of your browser."
+					);
+				}
 			};
 
 			rejectBtn.onclick = () => {
