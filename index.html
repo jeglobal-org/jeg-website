@@ -22,21 +22,6 @@
 			content="width=device-width, initial-scale=1, maximum-scale=1"
 		/>
 
-		<!-- Google tag (gtag.js) -->
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=G-PPM76B8GRK"
-		></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
-
-			gtag("config", "G-PPM76B8GRK");
-		</script>
-
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
 		<script
 			src="https://kit.fontawesome.com/747bf4ad3b.js"
@@ -101,16 +86,16 @@
 				text-align: left;
 			}
 
-			button {
+			/* button {
 				position: absolute;
 				top: 50%;
 				transform: translateY(-50%);
 				background: transparent;
 				border: none;
 				cursor: pointer;
-				z-index: 1; /* Assicura che le freccie siano sopra le slide */
+				z-index: 1;
 				color: #9c9c9c;
-			}
+			} */
 
 			.prev {
 				left: 20px;
@@ -4209,6 +4194,36 @@
 				</div>
 			</div>
 		</div>
+		<div id="consentBox" class="cookie-consent-banner">
+			<div class="cookie-consent-banner__inner">
+				<div class="cookie-consent-banner__copy">
+					<div class="cookie-consent-banner__header">
+						THIS WEBSITE USES COOKIES
+					</div>
+					<div class="cookie-consent-banner__description">
+						We use cookies to personalise content and ads, to provide social
+						media features and to analyse our traffic. We also share information
+						about your use of our site with our social media, advertising and
+						analytics partners who may combine it with other information that
+						you’ve provided to them or that they’ve collected from your use of
+						their services. You consent to our cookies if you continue to use
+						our website.
+					</div>
+				</div>
+				<div class="cookie-consent-banner__ctas">
+					<button id="acceptButton" class="cookie-consent-banner__cta">
+						Accept
+					</button>
+					<button
+						id="declineButton"
+						class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary"
+					>
+						Decline
+					</button>
+				</div>
+			</div>
+		</div>
+
 		<style id="shortcodes-dyn-inline-css">
 			#wrap section[class*="wn-section"] > .elementor-container {
 				display: none;
@@ -4308,6 +4323,74 @@
 
 			#wrap section[class*="wn-section"] > .elementor-container {
 				display: none;
+			}
+
+			.cookie-consent-banner {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				z-index: 2147483645;
+				box-sizing: border-box;
+				width: 100%;
+				background-color: #f1f6f4;
+			}
+
+			.cookie-consent-banner__inner {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 32px 0;
+			}
+
+			.cookie-consent-banner__copy {
+				margin-bottom: 16px;
+			}
+
+			.cookie-consent-banner__header {
+				margin-bottom: 8px;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 24px;
+			}
+
+			.cookie-consent-banner__description {
+				font-weight: normal;
+				color: #838f93;
+				font-size: 16px;
+				line-height: 24px;
+			}
+
+			.cookie-consent-banner__cta {
+				box-sizing: border-box;
+				min-width: 164px;
+				padding: 11px 13px;
+				background-color: #2ce080;
+				color: #fff;
+				text-decoration: none;
+				text-align: center;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 20px;
+				border: none;
+			}
+
+			.cookie-consent-banner__cta--secondary {
+				padding: 9px 13px;
+				background-color: transparent;
+				color: #2ce080;
+				border: 2px solid #2ce080;
+			}
+
+			.cookie-consent-banner__cta:hover {
+				background-color: #20ba68;
+			}
+
+			.cookie-consent-banner__cta--secondary:hover {
+				background-color: transparent;
+				color: #22c870;
+			}
+
+			.cookie-consent-banner__cta:last-child {
+				margin-left: 16px;
 			}
 		</style>
 		<script
@@ -4710,15 +4793,12 @@
 
 			document.querySelector(".next").addEventListener("click", () => {
 				if (currentIndex < 5 - 1) {
-					// Controlla se non siamo sull'ultima slide
 					currentIndex++;
 					updateSlidePosition();
 				}
 				if (currentIndex === 3 - 1) {
-					// Se siamo sull'ultima slide, disabilita il pulsante Next
 					document.querySelector(".next").disabled = true;
 				}
-				// Riattiva il pulsante Prev se necessario
 				document.querySelector(".prev").disabled = false;
 			});
 
@@ -4728,12 +4808,52 @@
 					updateSlidePosition();
 				}
 				if (currentIndex === 0) {
-					// Se siamo sulla prima slide, disabilita il pulsante Prev
 					document.querySelector(".prev").disabled = true;
 				}
-				// Riattiva il pulsante Next se necessario
 				document.querySelector(".next").disabled = false;
 			});
+		</script>
+		<script>
+			const consentBox = document.getElementById("consentBox");
+			const consentBtn = document.getElementById("acceptButton");
+			const rejectBtn = document.getElementById("declineButton");
+
+			consentBtn.onclick = () => {
+				document.cookie =
+					"Junior Enterprises Global=default; max-age=" +
+					60 * 60 * 24 +
+					"; path=/";
+				consentBox.style.display = "none";
+				loadGoogleAnalytics();
+			};
+
+			rejectBtn.onclick = () => {
+				consentBox.style.display = "none";
+			};
+
+			let checkCookie = document.cookie.indexOf(
+				"Junior Enterprises Global=default"
+			);
+			if (checkCookie !== -1) {
+				consentBox.style.display = "none";
+				loadGoogleAnalytics();
+			}
+
+			function loadGoogleAnalytics() {
+				let script = document.createElement("script");
+				script.src = "https://www.googletagmanager.com/gtag/js?id=G-PPM76B8GRK";
+				script.async = true;
+				document.head.appendChild(script);
+
+				script.onload = () => {
+					window.dataLayer = window.dataLayer || [];
+					function gtag() {
+						dataLayer.push(arguments);
+					}
+					gtag("js", new Date());
+					gtag("config", "G-PPM76B8GRK");
+				};
+			}
 		</script>
 	</body>
 </html>
